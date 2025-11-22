@@ -3,29 +3,29 @@ import java.util.Comparator;
 
 public class AdvancedSorters {
 
-    // --- MergeSort ---
+    // sorts will be combined together
     public static <K> void mergeSort(K[] S, Comparator<K> comp) {
         int n = S.length;
-        if (n < 2) return; // Base case
+        if (n < 2) return; // foundation of the case
 
         int mid = n / 2;
 
-        // Divide
+        // will divide the elements
         K[] S1 = Arrays.copyOfRange(S, 0, mid);
         K[] S2 = Arrays.copyOfRange(S, mid, n);
 
-        // Conquer
+
         mergeSort(S1, comp);
         mergeSort(S2, comp);
 
-        // Combine
+       // will merge the elements
         merge(S, S1, S2, comp);
     }
 
     private static <K> void merge(K[] S, K[] S1, K[] S2, Comparator<K> comp) {
         int i = 0, j = 0, k = 0;
 
-        // Merge elements while both arrays have elements
+        // merge the arrays
         while (i < S1.length && j < S2.length) {
             if (comp.compare(S1[i], S2[j]) <= 0) {
                 S[k++] = S1[i++];
@@ -34,24 +34,24 @@ public class AdvancedSorters {
             }
         }
 
-        // Copy any remaining from S1
+
         while (i < S1.length) {
             S[k++] = S1[i++];
         }
 
-        // Copy any remaining from S2
+
         while (j < S2.length) {
             S[k++] = S2[j++];
         }
     }
 
-    // --- QuickSort ---
+    // sort
     public static <K> void quickSort(K[] S, Comparator<K> comp) {
         quickSort(S, comp, 0, S.length - 1);
     }
 
     private static <K> void quickSort(K[] S, Comparator<K> comp, int a, int b) {
-        if (a >= b) return; // Base case
+        if (a >= b) return;
 
         int pivotIndex = partition(S, comp, a, b);
 
@@ -59,8 +59,9 @@ public class AdvancedSorters {
         quickSort(S, comp, pivotIndex + 1, b);
     }
 
+    // first element choosen
     private static <K> int partition(K[] S, Comparator<K> comp, int a, int b) {
-        K pivot = S[a];  // Choose first element
+        K pivot = S[a];
         int left = a + 1;
         int right = b;
 
@@ -74,7 +75,7 @@ public class AdvancedSorters {
 
             if (left > right) break;
 
-            // Swap left and right
+            // swtiched around
             K temp = S[left];
             S[left] = S[right];
             S[right] = temp;
@@ -83,11 +84,11 @@ public class AdvancedSorters {
             right--;
         }
 
-        // Put pivot in correct spot
+        // correct placement
         K temp = S[a];
         S[a] = S[right];
         S[right] = temp;
 
-        return right; // Pivot index
+        return right;  
     }
 }
